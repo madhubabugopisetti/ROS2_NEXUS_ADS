@@ -21,10 +21,26 @@ clear
 
 # GOAL 1: Render model in Gazebo
 
-## STEP 1: Creating a workspace
+### STEP 1: Creating a workspace
 ```
 mkdir -p ~/ros2_nexus_ads_ws/src
 cd ~/ros2_nexus_ads_ws/src
 source /opt/ros/jazzy/setup.bash
 ros2 pkg create docking_description --build-type ament_cmake
+```
+
+### STEP 2: Creating folders structure
+docking_description/
+    ├── launch/
+    ├── urdf/
+    ├── worlds/
+    ├── rviz/
+
+```
+cd ~/ros2_nexus_ads_ws/src
+mkdir -p docking_description/{launch,urdf,worlds,rviz}
+touch docking_description/worlds/world.sdf
+touch docking_description/launch/gazebo_rviz.launch.py
+touch docking_description/rviz/docking.rviz
+touch docking_description/urdf/docking.xacro
 ```
