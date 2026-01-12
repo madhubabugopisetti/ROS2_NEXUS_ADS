@@ -214,3 +214,34 @@ chmod +x auto_nav.py
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 launch docking_description localization.launch.py
 - ![camera](image-8.png)
+
+### STEP 2: Package creation
+- Run this in terminal
+```
+cd ~/ros2_nexus_ads_ws/src
+source /opt/ros/jazzy/setup.bash
+
+ros2 pkg create nexus_auto_docking \
+    --build-type ament_python \
+    --dependencies rclpy sensor_msgs geometry_msgs cv_bridge nav2_msgs
+```
+- Test
+```
+cd ~/ros2_nexus_ads_ws
+colcon build --symlink-install
+source install/setup.bash
+ros2 pkg list | grep nexus_auto_docking
+```
+
+### STEP 2: Show Camera Image in OpenCV Window
+- Check camera
+```
+cd ~/ros2_nexus_ads_ws/src/nexus_auto_docking/nexus_auto_docking
+touch dock_camera_test.py
+chmod +x dock_camera_test.py
+```
+- Add it to **entry_points** ```'dock_camera_test = nexus_auto_docking.dock_camera_test:main',```
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 run nexus_auto_docking dock_camera_test
+- ![dock window](image-9.png)
