@@ -46,10 +46,12 @@ docking_description/
         ├── world.sdf
     ├── rviz/
         ├── docking.rviz
+    ├── maps/
+        ├── 
 
 ```
 cd ~/ros2_nexus_ads_ws/src
-mkdir -p docking_description/{launch,urdf,worlds,rviz}
+mkdir -p docking_description/{launch,urdf,worlds,rviz,maps}
 touch docking_description/worlds/world.sdf
 touch docking_description/launch/gazebo_rviz.launch.py
 touch docking_description/rviz/docking.rviz
@@ -57,7 +59,7 @@ touch docking_description/urdf/docking.xacro
 ```
 
 ### STEP 3: Code to run robot in gazebo
-- Add folder launch, urdf, worlds, rviz to CMakeLists.txt
+- Add folder launch, urdf, worlds, rviz, maps to CMakeLists.txt
 - [BUILD](#build)
 - Add Ground Plane, walls, objects in world.sdf
 - Terminal 1: gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
@@ -136,3 +138,25 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Add bridge **/odom**, **/tf**
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.0}}"
+
+## GOAL 6: Creating a map
+
+### Step 1: LiDAR Setup
+- Add lidar_link and lidar_joint in docking.xacro
+- Add **gpu_lidar**, **gz-sim-sensors-system** plugin
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Add ScanLaser, topic as /scan and save config
+- ![LidarScan](image-4.png)
+
+### Step 2: Create map
+- Create slam.launch.py to create map
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 launch docking_description slam.launch.py
+- Terminal 3: ros2 lifecycle set /slam_toolbox configure  ros2 lifecycle set /slam_toolbox activate
+- Fixed Frame -> map, Add Map, topic as /map
+- ![Before Mapping](image-5.png)
+- Terminal 4: ros2 run teleop_twist_keyboard teleop_twist_keyboard
+- ![After Mapping](image-6.png)
+- Terminal 5: ros2 run nav2_map_server map_saver_cli -f ~/ros2_nexus_ads_ws/src/docking_description/maps/my_map
