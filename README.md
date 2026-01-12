@@ -117,3 +117,8 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Render world in gazebo_rviz.launch.py
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+
+### Step 2: Add model to the world
+- Add spawn in  gazebo_rviz.launch.py
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
