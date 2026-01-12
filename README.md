@@ -251,7 +251,7 @@ chmod +x dock_camera_test.py
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 
-### STEP 4: Create REAL Dock Vision Node
+### STEP 4: Dock Vision
 ```
 cd ~/ros2_nexus_ads_ws/src/nexus_auto_docking/nexus_auto_docking
 touch dock_vision.py
@@ -263,3 +263,21 @@ chmod +x dock_vision.py
 - Terminal 2: ros2 run nexus_auto_docking dock_vision
 - Terminal 3: ros2 topic echo /dock/vision
 - ![DOCK VISION](image-10.png)
+
+### STEP 5: Dock Controller
+```
+cd ~/ros2_nexus_ads_ws/src/nexus_auto_docking/nexus_auto_docking
+touch dock_controller.py
+chmod +x dock_controller.py
+```
+- Add it to **entry_points** ```'dock_controller = nexus_auto_docking.dock_controller:main',```
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 run nexus_auto_docking dock_vision
+- Terminal 3: ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+Move robot on z axis
+```
+- ![before dock controller](image-11.png)
+- Terminal 4: ros2 run nexus_auto_docking dock_controller
+- ![after Dock Controller](image-12.png)
