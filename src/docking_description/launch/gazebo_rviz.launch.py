@@ -40,6 +40,8 @@ def generate_launch_description():
             'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
             '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
             '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
+            '/odom@nav_msgs/msg/Odometry@gz.msgs.Odometry',
+            '/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
         ],
         output='screen'
     )
