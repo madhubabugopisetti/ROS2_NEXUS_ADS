@@ -58,7 +58,7 @@ touch docking_description/urdf/docking.xacro
 
 ### STEP 3: Code to run robot in gazebo
 - Add folder launch, urdf, worlds, rviz to CMakeLists.txt
-- [BUILD](#build)<br />
+- [BUILD](#build)
 - Add Ground Plane, walls, objects in world.sdf
 - Terminal 1: gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
 ![world](image.png)
@@ -70,18 +70,18 @@ touch docking_description/urdf/docking.xacro
 
 ## GOAL 2: Move model in Gazebo
 - Add **JointStatePublisher** plugin at ending of docking.xacro
-- [BUILD](#build)<br />
+- [BUILD](#build)
 - Terminal 1(Start Gazebo): gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
-- Terminal 2(Spawn Robot): ros2 run ros_gz_sim create   -name nexus_amr   -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
+- Terminal 2(Spawn Robot): ros2 run ros_gz_sim create   -name nexus_ads   -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
 - Terminal 3(Create Bridge): ros2 run ros_gz_bridge parameter_bridge   /cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist
 - Terminal 4(Move Robot linear): ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.0}}"
 - ![Moving](moving.gif)
 
 ## GOAL 3: Render model in gazebo and rviz
 - Add **DiffDrive** plugin at end of docking.xacro
-- [BUILD](#build)<br />
+- [BUILD](#build)
 - Terminal 1(Start Gazebo): gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
-- Terminal 2(Spawn Robot): ros2 run ros_gz_sim create   -name nexus_amr   -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
+- Terminal 2(Spawn Robot): ros2 run ros_gz_sim create   -name nexus_ads   -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
 - Terminal 3(Bridge Joints): 
 ```
 ros2 run ros_gz_bridge parameter_bridge \
@@ -92,3 +92,28 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Terminal 5(rviz): rviz2
 - Save config into docking.rviz
 - ![gazebo+rviz](image-3.png)
+
+
+## GOAL 4: Move model in gazebo and rviz
+- Terminal 1(Start Gazebo): gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
+- Terminal 2(Spawn Robot): ros2 run ros_gz_sim create   -name nexus_ads   -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
+- Terminal 3(Bridge Joints): 
+```
+ros2 run ros_gz_bridge parameter_bridge \
+    /joint_states@sensor_msgs/msg/JointState@gz.msgs.Model \
+    /cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist \
+    /odom@nav_msgs/msg/Odometry@gz.msgs.Odometry \
+    /tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V 
+```
+- Terminal 4(Publish TF): ros2 run robot_state_publisher robot_state_publisher \
+    --ros-args -p robot_description:="$(xacro ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro)"
+- Terminal 5(rviz): rviz2
+- Terminal 6(Move Robot linear): ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.0}}"
+
+
+## GOAL 5: Move model in gazebo and rviz via launch files
+
+### Step 1: Render world
+- Render world in gazebo_rviz.launch.py
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
