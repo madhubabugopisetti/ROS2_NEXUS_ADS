@@ -171,3 +171,11 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Terminal 2: ros2 launch docking_description localization.launch.py
 - Fixed Fram -> map
 - ![Saved Map](image-7.png)
+
+## GOAL 6: Navigation
+- Create navigation.launch.py file in launch and nav2.yaml in config
+- Add Planner → makes a path, Controller → follows the path, Behavior tree → orchestrates navigation, Recovery behaviors → unstuck logic, Velocity smoother → smooth motion, Lifecycle manager → auto-starts everything
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 launch docking_description localization.launch.py
+- Terminal 3: ros2 launch docking_description navigation.launch.py
