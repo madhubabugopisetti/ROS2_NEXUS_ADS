@@ -32,9 +32,13 @@ ros2 pkg create docking_description --build-type ament_cmake
 ### STEP 2: Creating folders structure
 docking_description/
     ├── launch/
+        ├── gazebo_rviz.launch.py
     ├── urdf/
+        ├── docking.xacro
     ├── worlds/
+        ├── world.sdf
     ├── rviz/
+        ├── docking.rviz
 
 ```
 cd ~/ros2_nexus_ads_ws/src
@@ -44,3 +48,14 @@ touch docking_description/launch/gazebo_rviz.launch.py
 touch docking_description/rviz/docking.rviz
 touch docking_description/urdf/docking.xacro
 ```
+
+### STEP 3: Code to run robot in gazebo
+- Add folder launch, urdf, worlds, rviz to CMakeLists.txt<br />
+- [BUILD](#build)<br />
+- Add Ground Plane, walls, objects in world.sdf
+- Terminal 1: gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
+![world](image.png)
+- Add robot with base_footprint, base_link, left_wheel, right_wheel, caster_wheel_back, caster_wheel_front with their joints in docking.xacro
+- Terminal 1: gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
+- Terminal 2: ros2 run ros_gz_sim create   -name nexus_ads -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
+![world_robot](image-1.png)![world_robot1](image-2.png)
