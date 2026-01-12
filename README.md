@@ -113,12 +113,18 @@ ros2 run ros_gz_bridge parameter_bridge \
 
 ## GOAL 5: Move model in gazebo and rviz via launch files
 
-### Step 1: Render world
+### Step 1: Render world in gazebo
 - Render world in gazebo_rviz.launch.py
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 
-### Step 2: Add model to the world
+### Step 2: Add model to the gazebo
 - Add spawn in  gazebo_rviz.launch.py
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+
+### Step 3: Move model in gazebo
+- Add bridge with **/cmd_vel** in gazebo_rviz.launch.py
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.0}}"
