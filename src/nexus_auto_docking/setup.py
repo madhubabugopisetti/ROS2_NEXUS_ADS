@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'dock_camera_test = nexus_auto_docking.dock_camera_test:main',
+            'dock_vision = nexus_auto_docking.dock_vision:main',
         ],
     },
 )

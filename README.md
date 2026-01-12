@@ -245,3 +245,21 @@ chmod +x dock_camera_test.py
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 run nexus_auto_docking dock_camera_test
 - ![dock window](image-9.png)
+
+### STEP 3: Add a cube for docking
+- Add in world.sdf
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+
+### STEP 4: Create REAL Dock Vision Node
+```
+cd ~/ros2_nexus_ads_ws/src/nexus_auto_docking/nexus_auto_docking
+touch dock_vision.py
+chmod +x dock_vision.py
+```
+- Add it to **entry_points** ```'dock_vision = nexus_auto_docking.dock_vision:main',```
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 run nexus_auto_docking dock_vision
+- Terminal 3: ros2 topic echo /dock/vision
+- ![DOCK VISION](image-10.png)
