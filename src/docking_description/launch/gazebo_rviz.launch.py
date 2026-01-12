@@ -13,6 +13,7 @@ def generate_launch_description():
     pkg_path = get_package_share_directory("docking_description")
     world_file = os.path.join(pkg_path, "worlds", "world.sdf")
     xacro_file = os.path.join(pkg_path, "urdf", "docking.xacro")
+    rviz_file = os.path.join(pkg_path, "rviz", "docking.rviz")
 
     # Gazebo Harmonic
     gazebo = ExecuteProcess(
@@ -37,13 +38,33 @@ def generate_launch_description():
     bridge = ExecuteProcess(
         cmd=[
             'ros2', 'run', 'ros_gz_bridge', 'parameter_bridge',
+            '/joint_states@sensor_msgs/msg/JointState@gz.msgs.Model',
             '/cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist',
         ],
         output='screen'
     )
 
+    # RViz
+    rviz = Node(
+        package="rviz2",
+        executable="rviz2",
+        arguments=["-d", rviz_file],
+        output="screen"
+    )
+
+    # rsp
+    robot_state_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        parameters=[{
+            'robot_description': Command(['xacro ', xacro_file])
+        }],
+        output='screen'
+    )
     return LaunchDescription([
         gazebo,
         bridge,
-        spawn_robot
+        robot_state_publisher,
+        spawn_robot,
+        rviz
     ])

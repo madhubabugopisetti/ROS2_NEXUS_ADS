@@ -128,3 +128,10 @@ ros2 run ros_gz_bridge parameter_bridge \
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 topic pub /cmd_vel geometry_msgs/msg/Twist "{linear: {x: 0.5}, angular: {z: 0.0}}"
+
+### Step 4: Render model in gazebo and rviz
+- Add rviz node
+- Add rsp node
+- Add bridge **/joint_states**
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
