@@ -204,3 +204,13 @@ chmod +x auto_nav.py
 - Terminal 2: ros2 launch docking_description localization.launch.py
 - Terminal 3: ros2 launch docking_description navigation.launch.py
 - Terminal 3: ros2 run nexus_auto_nav auto_nav
+
+## GOAL 8: AUTO DOCKING
+
+### STEP 1: Camera Setup
+- Add camera link, joint and **camera** sensor in docking.xacro
+- Add **/camera/image**, **/camera/camera_info** in bridge
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 launch docking_description localization.launch.py
+- ![camera](image-8.png)
