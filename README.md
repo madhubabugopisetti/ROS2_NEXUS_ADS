@@ -281,3 +281,28 @@ Move robot on z axis
 - ![before dock controller](image-11.png)
 - Terminal 4: ros2 run nexus_auto_docking dock_controller
 - ![after Dock Controller](image-12.png)
+
+### STEP 6: Auto Dock Manager (Nav2 → Dock)
+```
+cd ~/ros2_nexus_ads_ws/src/nexus_auto_docking/nexus_auto_docking
+touch dock_manager.py
+chmod +x dock_manager.py
+```
+- Add it to **entry_points** ```'dock_manager = nexus_auto_docking.dock_manager:main'```
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 launch docking_description localization.launch.py
+- Terminal 3: ros2 launch docking_description navigation.launch.py
+- Terminal 4: ros2 run teleop_twist_keyboard teleop_twist_keyboard
+- ![Starting point](image-13.png)
+```
+move far from the dock
+CTRL+C - Terminal 4
+```
+- ![After moving](image-14.png)
+- Terminal 5: ros2 run nexus_auto_docking dock_manager
+- ![After auto navigation](image-15.png)
+- Terminal 6: ros2 run nexus_auto_docking dock_vision
+- ![Before auto docking](image-16.png)
+- Terminal 7: ros2 run nexus_auto_docking dock_controller
+- ![After AUTO DOCKING](image-17.png)

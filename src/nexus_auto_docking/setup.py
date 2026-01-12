@@ -27,6 +27,7 @@ setup(
             'dock_camera_test = nexus_auto_docking.dock_camera_test:main',
             'dock_vision = nexus_auto_docking.dock_vision:main',
             'dock_controller = nexus_auto_docking.dock_controller:main',
+            'dock_manager = nexus_auto_docking.dock_manager:main',
         ],
     },
 )
