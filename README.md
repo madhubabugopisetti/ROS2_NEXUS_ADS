@@ -179,3 +179,28 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 launch docking_description localization.launch.py
 - Terminal 3: ros2 launch docking_description navigation.launch.py
+
+## GOAL 7: AUTO NAVIGATION
+- Create new package
+```
+cd ~/ros2_nexus_ads_ws/src
+source /opt/ros/jazzy/setup.bash
+ros2 pkg create nexus_auto_nav --build-type ament_python --dependencies rclpy nav2_msgs geometry_msgs
+```
+```
+cd ~/ros2_nexus_ads_ws
+colcon build --symlink-install
+source install/setup.bash
+```
+- Create a node file
+```
+cd ~/ros2_nexus_ads_ws/src/nexus_auto_nav/nexus_auto_nav
+touch auto_nav.py
+chmod +x auto_nav.py
+```
+- Add it to **entry_points** ```'auto_nav = nexus_auto_nav.auto_nav:main',```
+- [BUILD](#build)
+- Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
+- Terminal 2: ros2 launch docking_description localization.launch.py
+- Terminal 3: ros2 launch docking_description navigation.launch.py
+- Terminal 3: ros2 run nexus_auto_nav auto_nav
