@@ -82,13 +82,10 @@ touch docking_description/urdf/docking.xacro
 - [BUILD](#build)<br />
 - Terminal 1(Start Gazebo): gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
 - Terminal 2(Spawn Robot): ros2 run ros_gz_sim create   -name nexus_amr   -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
-- Terminal 3(Bridge): 
+- Terminal 3(Bridge Joints): 
 ```
 ros2 run ros_gz_bridge parameter_bridge \
-    /cmd_vel@geometry_msgs/msg/Twist@gz.msgs.Twist \
-    /joint_states@sensor_msgs/msg/JointState@gz.msgs.Model \
-    /odom@nav_msgs/msg/Odometry@gz.msgs.Odometry \
-    /tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V
+    /joint_states@sensor_msgs/msg/JointState@gz.msgs.Model
 ```
 - Terminal 4(Publish TF): ros2 run robot_state_publisher robot_state_publisher \
     --ros-args -p robot_description:="$(xacro ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro)"
