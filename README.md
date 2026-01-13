@@ -65,11 +65,11 @@ touch docking_description/urdf/docking.xacro
 - [BUILD](#build)
 - Add Ground Plane, walls, objects in world.sdf
 - Terminal 1: gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
-![world](image.png)
+![world](./src/images/image.png)
 - Add robot with base_footprint, base_link, left_wheel, right_wheel, caster_wheel_back, caster_wheel_front with their joints in docking.xacro
 - Terminal 1: gz sim -r ~/ros2_nexus_ads_ws/src/docking_description/worlds/world.sdf
 - Terminal 2: ros2 run ros_gz_sim create   -name nexus_ads -file ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro
-![world_robot](image-1.png)![world_robot1](image-2.png)
+![world_robot](./src/images/image-1.png)![world_robot1](./src/images/image-2.png)
 
 
 ## GOAL 2: Move model in Gazebo
@@ -95,7 +95,7 @@ ros2 run ros_gz_bridge parameter_bridge \
     --ros-args -p robot_description:="$(xacro ~/ros2_nexus_ads_ws/src/docking_description/urdf/docking.xacro)"
 - Terminal 5(rviz): rviz2
 - Save config into docking.rviz
-- ![gazebo+rviz](image-3.png)
+- ![gazebo+rviz](./src/images/image-3.png)
 
 
 ## GOAL 4: Move model in gazebo and rviz
@@ -149,7 +149,7 @@ ros2 run ros_gz_bridge parameter_bridge \
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Add ScanLaser, topic as /scan and save config
-- ![LidarScan](image-4.png)
+- ![LidarScan](./src/images/image-4.png)
 
 ### Step 2: Create map
 - Create slam.launch.py to create map
@@ -158,9 +158,9 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Terminal 2: ros2 launch docking_description slam.launch.py
 - Terminal 3: ros2 lifecycle set /slam_toolbox configure  ros2 lifecycle set /slam_toolbox activate
 - Fixed Frame -> map, Add Map, topic as /map
-- ![Before Mapping](image-5.png)
+- ![Before Mapping](./src/images/image-5.png)
 - Terminal 4: ros2 run teleop_twist_keyboard teleop_twist_keyboard
-- ![After Mapping](image-6.png)
+- ![After Mapping](./src/images/image-6.png)
 - Terminal 5: ros2 run nav2_map_server map_saver_cli -f ~/ros2_nexus_ads_ws/src/docking_description/maps/my_map
 
 ## GOAL 6: Localization (auto load saved map)
@@ -170,7 +170,7 @@ ros2 run ros_gz_bridge parameter_bridge \
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 launch docking_description localization.launch.py
 - Fixed Fram -> map
-- ![Saved Map](image-7.png)
+- ![Saved Map](./src/images/image-7.png)
 
 ## GOAL 6: Navigation
 - Create navigation.launch.py file in launch and nav2.yaml in config
@@ -213,7 +213,7 @@ chmod +x auto_nav.py
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 launch docking_description localization.launch.py
-- ![camera](image-8.png)
+- ![camera](./src/images/image-8.png)
 
 ### STEP 2: Package creation
 - Run this in terminal
@@ -244,7 +244,7 @@ chmod +x dock_camera_test.py
 - [BUILD](#build)
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 run nexus_auto_docking dock_camera_test
-- ![dock window](image-9.png)
+- ![dock window](./src/images/image-9.png)
 
 ### STEP 3: Add a cube for docking
 - Add in world.sdf
@@ -262,7 +262,7 @@ chmod +x dock_vision.py
 - Terminal 1: ros2 launch docking_description gazebo_rviz.launch.py
 - Terminal 2: ros2 run nexus_auto_docking dock_vision
 - Terminal 3: ros2 topic echo /dock/vision
-- ![DOCK VISION](image-10.png)
+- ![DOCK VISION](./src/images/image-10.png)
 
 ### STEP 5: Dock Controller
 ```
@@ -278,9 +278,9 @@ chmod +x dock_controller.py
 ```
 Move robot on z axis
 ```
-- ![before dock controller](image-11.png)
+- ![before dock controller](./src/images/image-11.png)
 - Terminal 4: ros2 run nexus_auto_docking dock_controller
-- ![after Dock Controller](image-12.png)
+- ![after Dock Controller](./src/images/image-12.png)
 
 ### STEP 6: Auto Dock Manager (Nav2 → Dock)
 ```
@@ -294,15 +294,15 @@ chmod +x dock_manager.py
 - Terminal 2: ros2 launch docking_description localization.launch.py
 - Terminal 3: ros2 launch docking_description navigation.launch.py
 - Terminal 4: ros2 run teleop_twist_keyboard teleop_twist_keyboard
-- ![Starting point](image-13.png)
+- ![Starting point](./src/images/image-13.png)
 ```
 move far from the dock
 CTRL+C - Terminal 4
 ```
-- ![After moving](image-14.png)
+- ![After moving](./src/images/image-14.png)
 - Terminal 5: ros2 run nexus_auto_docking dock_manager
-- ![After auto navigation](image-15.png)
+- ![After auto navigation](./src/images/image-15.png)
 - Terminal 6: ros2 run nexus_auto_docking dock_vision
-- ![Before auto docking](image-16.png)
+- ![Before auto docking](./src/images/image-16.png)
 - Terminal 7: ros2 run nexus_auto_docking dock_controller
-- ![After AUTO DOCKING](image-17.png)
+- ![After AUTO DOCKING](./src/images/image-17.png)
