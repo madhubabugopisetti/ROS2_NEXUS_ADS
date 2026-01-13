@@ -37,6 +37,7 @@ ros2 pkg create docking_description --build-type ament_cmake
 ```
 
 ### STEP 2: Creating folders structure
+```
 docking_description/
     ├── config/
         ├── 
@@ -50,7 +51,7 @@ docking_description/
         ├── docking.rviz
     ├── maps/
         ├── 
-
+```
 ```
 cd ~/ros2_nexus_ads_ws/src
 mkdir -p docking_description/{config,launch,urdf,worlds,rviz,maps}
